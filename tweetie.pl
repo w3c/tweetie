@@ -13,20 +13,23 @@ use Net::Twitter::Lite;
 use Net::OAuth::Simple;
 
 use DB_File;
-## use IRC::Utils qw(decode_irc);
-
 
 my $channels = {};
 my $recent = {};
 
-require "$ENV{HOME}/consumer.pl";
+require "$ENV{HOME}/.tweetie.pl";
 
-my $irc = POE::Component::IRC->spawn(
-				     nick   => 'tweetie',
-				     server => 'irc.w3.org',
-				     # server => 'localhost',
-   
-);
+my %irc_defaults = (nick => "tweetie",
+                    username => "tweetie",
+                    password => undef,
+                    server => undef,
+                    port => 6667,
+                    UseSSL => 0,);
+while (my ($key, $value) = each %irc_defaults) {
+    $irc_config{$key} = $irc_defaults{$key} if (!defined($irc_config{$key}));
+}
+
+my $irc = POE::Component::IRC->spawn(%irc_config);
 
 POE::Session->create(
     package_states => [
@@ -326,10 +329,6 @@ sub load_channel () {
 	$t->access_token ($channels->{$c}->{access_token});
 	$t->access_token_secret ($channels->{$c}->{access_token_secret});
       }
-
-
-      # print STDERR $consumer_key, "\t", $consumer_secret, "\n";
-
     }
 
     untie %persistent;
