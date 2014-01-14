@@ -9,7 +9,7 @@ use POE;
 use POE::Component::IRC;
 use POE::Component::IRC::Plugin::BotCommand;
 
-use Net::Twitter::Lite;
+use Net::Twitter::Lite::WithAPIv1_1;
 use Net::OAuth::Simple;
 
 use DB_File;
@@ -319,7 +319,7 @@ sub load_channel () {
 	print STDERR $c . ":" . $k . " = " . $channels->{$c}->{$k}, "\n";
       }
 
-      my $t = $channels->{$c}->{t} = Net::Twitter::Lite->new (			
+      my $t = $channels->{$c}->{t} = Net::Twitter::Lite::WithAPIv1_1->new (
 						      traits   => [qw/OAuth API::REST/],
 						      consumer_key => $consumer_key, consumer_secret => $consumer_secret,
 						     );
