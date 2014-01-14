@@ -253,8 +253,10 @@ sub get_updates {
 	}
       };
       
-      if ($@) {
-	$irc->yield ('ctcp' => $c, "ACTION can't get no satisfaction: " . $@);
+      if (my $error = $@) {
+        print STDERR ($error->http_response->request->as_string(), "\n\n",
+                      $error->http_response->as_string(), "\n");
+	$irc->yield ('ctcp' => $c, "ACTION can't get no satisfaction: $error");
       }
       
       if ($result) {
