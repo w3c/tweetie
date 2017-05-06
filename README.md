@@ -13,11 +13,11 @@ Reports on IRC when the user is mentioned on Twitter, allows to reply or tweet
 tweetie parses `$HOME/.tweetie.pl` and expects it to define a few variables.
 As a minimum, it has to contain
 
- $consumer_key = 'XXXXXXXXXXXXXXXX;
- $consumer_secret = 'YYYYYYYYYYYYYYYYYY;
- %irc_config = (
-  server => 'the.irc.server',
- );
+    $consumer_key = 'XXXXXXXXXXXXXXXX;
+    $consumer_secret = 'YYYYYYYYYYYYYYYYYY;
+    %irc_config = (
+     server => 'the.irc.server',
+    );
 
 `$consumer_key` and `$consumer_secret` are the Twitter API key and secret you wish to use, respectively.
 Go to [apps.twitter.com](https://apps.twitter.com/) and select "Create
@@ -27,7 +27,7 @@ New App" to generate keys.
 
 Run tweetie from the command line:
 
- perl tweetie.pl
+    perl tweetie.pl
 
 It tries to connect to the IRC server configured in `.tweetie.pl` and
 prints some diagnostic output. A line `irc_001` means connection was
@@ -38,7 +38,7 @@ successful.
 Once tweetie is running and connected to the IRC server, invite it to
 a channel:
 
- /invite tweetie
+    /invite tweetie
 
 (The nickname can be changed in the configuration file, see above.)
 Tweetie can be on multiple channels at once and can be connected to
@@ -50,7 +50,7 @@ as JoeTweeter" and JoeTweeter is indeed the Twitter handle you want to
 use, it means it is already connected to Twitter and you can skip this
 step. Otherwise, connect to a Twitter account in two steps:
 
- tweetie, login
+    tweetie, login
 
 (A `:` instead of a `,` works, too.) Tweetie replies with a URL
 (`https://api.twitter.com/...`). Copy and paste that into a browser
@@ -66,7 +66,7 @@ Twitter should now show a Web page with a 6-digit number. Go back to
 IRC and give that number to tweetie (replacing 123456 with the number
 from the Web page):
 
- tweetie, pin 123456
+    tweetie, pin 123456
 
 Tweetie should reply with: “tweetie is now tweeting as JoeTweeter" (or
 whatever the Twitter account).
@@ -77,23 +77,23 @@ handle.
 
 To tweet something yourself, use tweetie's `say` command:
 
- tweetie, say Feeling #happy. The #sun is shining.
+    tweetie, say Feeling #happy. The #sun is shining.
 
 Tweetie also has commands `reply`, to reply to the most recent
 message:
 
- tweetie, reply Thanks!
+    tweetie, reply Thanks!
 
 and `status`, to show your own most recent tweet:
 
- tweetie, status
+    tweetie, status
 
 There is no command to make tweetie quit. To make it stop listening to
 Twitter, use the `login` command (and ignore the URL it prints). Then
 kick it off the channel:
 
- tweetie, login
- /kick tweetie
+    tweetie, login
+    /kick tweetie
 
 If you forget the login command, tweetie continues to listen to
 Twitter and forward tweets to the channel, even after it has been
